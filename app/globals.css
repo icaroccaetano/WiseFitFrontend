@@ -1,26 +1,52 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --background: #DCD9A7;
+  --foreground: #000000;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #DCD9A7;
+    --foreground: #000000;
   }
 }
+.flex-layout {
+  display: flex;
+  flex-direction: column; /* Organiza os itens em uma coluna (main e footer) */
+  min-height: 100vh;      /* Garante que o layout ocupe no mínimo 100% da altura da tela */
+}
 
+.flex-content {
+  flex-grow: 1; /* A MÁGICA: Faz o conteúdo principal "crescer" e empurrar o rodapé para baixo */
+}
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+  background-color: #DCD9A7;
+  min-height: 100vh;
+  /* margin: 0; já está coberto pelo '*' acima, pode remover se quiser */
+  overflow-x: hidden;
+}
+
+body::before {
+  content: ''; /* Precisa estar aqui para o pseudo-elemento funcionar */
+  position: absolute; /* Posicionamento em relação ao body */
+  bottom: 0;
+  right: 0;
+
+  /* 1. Definimos o tamanho da área. Usar 'vw' (viewport width) torna o enfeite responsivo.
+     Ele será 30% da largura da tela. */
+  width: 17%; 
+  height: 100%; /* Usamos a mesma altura para que o triângulo seja de 45 graus */
+
+  /* 2. O fundo que você quer para o seu enfeite. 
+     Um gradiente diagonal fica muito bonito com essa forma. */
+  background: linear-gradient(135deg, #17B978, #071A52);
+
+  /* 3. A MÁGICA DO RECORTE:
+     Isso cria um polígono de três pontos, resultando em um triângulo. */
+  clip-path: polygon(100% 0, 0 100%, 100% 100%);
+
+  /* 4. Joga o enfeite para trás de todo o conteúdo */
+  z-index: -1;
 }
