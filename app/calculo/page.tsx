@@ -1,29 +1,21 @@
 'use client';
-import FormularioCutting from '@/components/FormularioCutting'
-import Image from 'next/image';
 
+import React from 'react';
+import { PageLayout } from '@/components/ui/PageLayout';
+import FormularioCutting from '@/components/FormularioCutting';
 
-export default function CalculoCaloriasPage() {
+export default function CalculoPage() {
   return (
-     <main style={{ fontFamily: 'sans-serif', textAlign: 'center', marginTop: '50px' }}>
-      <h1 style={{ color: '#32b821ff', fontSize: '2.5rem' }}>
-        WiseFit
-      </h1>
-      
-      <p style={{ color: '#2b21b8ff', fontSize: '1.2rem' }}>
-        Cálculo de calorias
-      </p>
-      
-      <FormularioCutting />
-
-       <Image
-            src="/wisefit-logo.png" // O caminho começa com '/' e se refere à pasta 'public'
-            alt="Logotipo do WiseFit"
-            width={200} // É obrigatório definir a largura
-            height={150} // E a altura, para evitar que a página "pule" enquanto a imagem carrega
-            style={{ textAlign: 'center' }}
-            />
-     
-    </main>
+    <PageLayout>
+      <div className="max-w-2xl mx-auto">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-[#071A52] mb-2">Calculadora de Cutting</h1>
+          <p className="text-[#071A52]/70">
+            Preencha seus dados para calcularmos a quantidade ideal de calorias para o seu objetivo de perda de peso.
+          </p>
+        </div>
+        <FormularioCutting />
+      </div>
+    </PageLayout>
   );
 }

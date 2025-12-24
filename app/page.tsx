@@ -1,69 +1,74 @@
+'use client';
+
+import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-
-const containerStyle = {
-  fontFamily: 'sans-serif',
-  padding: '25px',
-  borderRadius: '8px',
-  maxWidth: '400px',
-  margin: '20px auto', // Centraliza o formulário na página
-  backgroundColor: '#086972',
-  boxShadow: '0 3px 3px 0 #4b4646ff',
-};
-
-const buttonStyle={
-  display: 'inline-block',
-  padding: '12px 24px',
-  fontSize: '1rem',
-  color: 'white',
-  backgroundColor: '#17B978',
-  border: 'none',
-  borderRadius: '8px',
-  cursor: 'pointer',
-  textDecoration: 'none', // Importante para o link não ficar sublinhado
-};
+import { PageLayout } from '@/components/ui/PageLayout';
+import { Card } from '@/components/ui/Card';
+import { Button } from '@/components/ui/Button';
 
 export default function Home() {
+  const features = [
+    {
+      title: 'Cálculo de Calorias',
+      description: 'Descubra sua necessidade calórica diária para cutting, bulking ou manutenção.',
+      link: '/calculo',
+      icon: '🔥'
+    },
+    {
+      title: 'Macros Diários',
+      description: 'Calcule a distribuição ideal de proteínas, carboidratos e gorduras para seu objetivo.',
+      link: '/macros',
+      icon: '📊'
+    },
+    {
+      title: 'Bioimpedância',
+      description: 'Estime seu percentual de gordura corporal com base em medidas corporais.',
+      link: '/bioimpedancia',
+      icon: '⚖️'
+    }
+  ];
+
   return (
-     <main style={{ fontFamily: 'sans-serif', textAlign: 'center', marginTop: '20px' }}>
-      <Image
-        src="/wisefit-logo.png" // O caminho começa com '/' e se refere à pasta 'public'
-        alt="Logotipo do WiseFit"
-        width={200} // É obrigatório definir a largura
-        height={150} // E a altura, para evitar que a página "pule" enquanto a imagem carrega
-        style={{ textAlign: 'right', marginLeft: '10px' }}
-      />
-
-      <div className="mt-5 mb-5">
-        <p className="text-2xl font-semibold text-gray-800 text-center">
-          Sua jornada de{' '}
-          <span style={{color: '#17B978'}}>saúde</span>, 
-          agora com mais{' '}
-          <span style={{color: '#17B978'}}>inteligência</span>.
+    <PageLayout>
+      <div className="text-center mb-12">
+        <h1 className="text-4xl md:text-5xl font-bold text-[#071A52] mb-4">
+          Sua saúde com <span className="text-[#17B978]">Inteligência</span>
+        </h1>
+        <p className="text-xl text-[#071A52]/80 max-w-2xl mx-auto">
+          Ferramentas precisas para você alcançar seus objetivos físicos com base em dados reais.
         </p>
       </div>
-      
-      <div className="mt-30 mb-5">
-        <p className="text-2xl font-semibold text-gray-800 text-center">
-          Nossa missão é usar a tecnologia em prol da saúde. Faça login para ter seu histórico. Conheça nossos serviços!
-        </p>
-      </div>
-      <div>
-        <Link href="/login" style={buttonStyle} className="ml-5 mr-5">
-          Login
-        </Link>
 
-        <Link href="/calculo" style={buttonStyle} className="ml-5 mr-5">
-          Cutting
-        </Link>
-
-        <Link href="/dieta" style={buttonStyle} className="ml-5 mr-5">
-          Dieta
-        </Link>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {features.map((feature, index) => (
+          <Card key={index} className="flex flex-col h-full hover:shadow-2xl transition-shadow duration-300">
+            <div className="text-4xl mb-4 text-center">{feature.icon}</div>
+            <h3 className="text-2xl font-bold text-[#086972] mb-3 text-center">{feature.title}</h3>
+            <p className="text-[#071A52]/70 mb-6 text-center flex-grow">
+              {feature.description}
+            </p>
+            <Link href={feature.link} className="mt-auto">
+              <Button fullWidth variant="outline">
+                Acessar
+              </Button>
+            </Link>
+          </Card>
+        ))}
       </div>
 
-        
-
-    </main>
+      <div className="mt-16 text-center">
+        <Card className="max-w-3xl mx-auto bg-gradient-to-r from-[#086972] to-[#071A52] text-white border-none">
+          <h2 className="text-3xl font-bold mb-4">Comece sua transformação hoje</h2>
+          <p className="mb-8 opacity-90">
+            Junte-se a milhares de usuários que já estão mudando de vida com o WiseFit.
+          </p>
+          <Link href="/login">
+            <Button variant="primary" className="bg-[#17B978] text-white hover:bg-white hover:text-[#17B978]">
+              Fazer Login / Cadastrar
+            </Button>
+          </Link>
+        </Card>
+      </div>
+    </PageLayout>
   );
 }

@@ -1,52 +1,51 @@
 @import "tailwindcss";
 
 :root {
+  /* Color Palette */
   --background: #DCD9A7;
-  --foreground: #000000;
+  --primary: #17B978;
+  --secondary: #086972;
+  --dark: #071A52;
+  --white: #ffffff;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-800: #1f2937;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #DCD9A7;
-    --foreground: #000000;
-  }
-}
-.flex-layout {
-  display: flex;
-  flex-direction: column; /* Organiza os itens em uma coluna (main e footer) */
-  min-height: 100vh;      /* Garante que o layout ocupe no mínimo 100% da altura da tela */
-}
-
-.flex-content {
-  flex-grow: 1; /* A MÁGICA: Faz o conteúdo principal "crescer" e empurrar o rodapé para baixo */
-}
 body {
-  position: relative;
-  background-color: #DCD9A7;
+  background-color: var(--background);
+  color: var(--dark);
+  font-family: 'Inter', sans-serif; /* Assuming Inter or similar sans-serif */
   min-height: 100vh;
-  /* margin: 0; já está coberto pelo '*' acima, pode remover se quiser */
   overflow-x: hidden;
+  margin: 0;
 }
 
-body::before {
-  content: ''; /* Precisa estar aqui para o pseudo-elemento funcionar */
-  position: absolute; /* Posicionamento em relação ao body */
-  bottom: 0;
-  right: 0;
+/* Utility classes for specific theme colors if Tailwind config isn't fully set up for custom vars yet, 
+   though usually we'd add these to tailwind.config.ts. 
+   Since I can't easily see/edit tailwind config without potentially breaking things or if it doesn't exist, 
+   I'll add some helper classes here just in case. */
 
-  /* 1. Definimos o tamanho da área. Usar 'vw' (viewport width) torna o enfeite responsivo.
-     Ele será 30% da largura da tela. */
-  width: 17%; 
-  height: 100%; /* Usamos a mesma altura para que o triângulo seja de 45 graus */
+.bg-theme-background { background-color: var(--background); }
+.bg-theme-primary { background-color: var(--primary); }
+.bg-theme-secondary { background-color: var(--secondary); }
+.bg-theme-dark { background-color: var(--dark); }
 
-  /* 2. O fundo que você quer para o seu enfeite. 
-     Um gradiente diagonal fica muito bonito com essa forma. */
-  background: linear-gradient(135deg, #17B978, #071A52);
+.text-theme-primary { color: var(--primary); }
+.text-theme-secondary { color: var(--secondary); }
+.text-theme-dark { color: var(--dark); }
 
-  /* 3. A MÁGICA DO RECORTE:
-     Isso cria um polígono de três pontos, resultando em um triângulo. */
-  clip-path: polygon(100% 0, 0 100%, 100% 100%);
-
-  /* 4. Joga o enfeite para trás de todo o conteúdo */
-  z-index: -1;
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--secondary);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
 }
